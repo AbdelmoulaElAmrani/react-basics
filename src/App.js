@@ -56,21 +56,27 @@ class App extends Component {
         if(this.state.showPersons){
             persons=(
                 <div>
-                    <Person
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age}
+                    {this.state.persons.map( person => {
+                        return <Person
+                        name={person.name}
+                        age={person.age}
+                        />
+                    })}
+                    {/*<Person*/}
+                        {/*name={this.state.persons[0].name}*/}
+                        {/*age={this.state.persons[0].age}*/}
 
-                    > I love cats</Person>
-                    <Person
-                        name={this.state.persons[1].name}
-                        age={this.state.persons[1].age}
-                        click={this.switchNameHundler.bind(this, "Broo")}
-                        changed={this.NameChangeHundler}
-                    > I love cats</Person>
-                    <Person
-                        name={this.state.persons[2].name}
-                        age={this.state.persons[2].age}
-                    > I love cats</Person>
+                    {/*> I love cats</Person>*/}
+                    {/*<Person*/}
+                        {/*name={this.state.persons[1].name}*/}
+                        {/*age={this.state.persons[1].age}*/}
+                        {/*click={this.switchNameHundler.bind(this, "Broo")}*/}
+                        {/*changed={this.NameChangeHundler}*/}
+                    {/*> I love cats</Person>*/}
+                    {/*<Person*/}
+                        {/*name={this.state.persons[2].name}*/}
+                        {/*age={this.state.persons[2].age}*/}
+                    {/*> I love cats</Person>*/}
                 </div>
             )
         }
