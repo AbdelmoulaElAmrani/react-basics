@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium , { StyleRoot  } from 'radium';
 import Person  from './Person/Person';
 
 
@@ -8,9 +9,9 @@ class App extends Component {
 
     state ={
         persons:[
-            {name : 'jay' , age : 77},
-            {name : 'key' , age : 97},
-            {name : 'ray' , age : 7},
+            { id : 1,name : 'jay' , age : 77},
+            { id : 2,name : 'key' , age : 97},
+            { id : 3,name : 'ray' , age : 7},
 
         ],
             showPersons : false
@@ -26,14 +27,18 @@ class App extends Component {
             ]
         })
     };
-    NameChangeHundler = (event) =>{
+    NameChangeHundler = (event , id) =>{
+        const personIndex  = this.state.persons.findIndex(p =>{
+            return p.id === id ;
+        } );
+        const person ={
+            ...this.state.persons[personIndex]
+        };
+        person.name = event.target.value ;
+        const persons = [...this.state.persons];
+        persons[personIndex] = person ;
         this.setState({
-            persons:[
-                {name : 'jo' , age : 77},
-                {name : event.target.value , age : 27},
-                {name : 'Aray' , age : 17}
-
-            ]
+            persons:persons
         })
     };
     toggleHundler = () =>{
@@ -42,24 +47,38 @@ class App extends Component {
         this.setState({showPersons : !isVisibile});
 
     };
+    deletePersonHundler = (persomIndex) => {
+        // const persons = this.state.persons.slice()
+        const persons = [...this.state.persons];
+        persons.splice(persomIndex , 1);
+        this.setState({persons : persons})
+
+    }
 
   render() {
 
         const style ={
-          backgroundColor : "white",
+          backgroundColor : "green",
           font : "inherit",
             border : "1px solid blue",
             padding : "8px",
-            cursor: "pointer"
+            cursor: "pointer",
+            ":hover":{
+              backgroundColor:'lightgreen',
+                color:'black'
+            }
         };
         let persons = null;
         if(this.state.showPersons){
             persons=(
                 <div>
-                    {this.state.persons.map( person => {
+                    {this.state.persons.map( (person , index) => {
                         return <Person
+                        click={() => this.deletePersonHundler(index)}
                         name={person.name}
                         age={person.age}
+                        key={person.id}
+                        changed={(event) => this.NameChangeHundler(event , person.id)}
                         />
                     })}
                     {/*<Person*/}
@@ -79,20 +98,36 @@ class App extends Component {
                     {/*> I love cats</Person>*/}
                 </div>
             )
+            style.backgroundColor = 'red';
+            style[":hover"]={
+                backgroundColor:'salmon',
+                    color:'white'
+            };
+        }
+
+        const classes = [];
+        if (this.state.persons.length <= 2){
+            classes.push('red')
+        }
+        if (this.state.persons.length <= 1) {
+            classes.push('bold')
         }
 
     return (
-      <div className="App">
-        <h1>Hello</h1>
-          <button
-              style={style}
-              onClick={this.toggleHundler}>toggle persons </button>
+        <StyleRoot>
+          <div className="App">
+            <h1>Hello</h1>
+              <p className={classes.join(' ')}>list of persons</p>
+              <button
+                  style={style}
+                  onClick={this.toggleHundler}>toggle persons </button>
 
-          {persons}
-      </div>
+              {persons}
+          </div>
+        </StyleRoot>
 
     );
   }
 }
 
-export default App;
+export default Radium(App);
