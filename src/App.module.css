@@ -8,3 +8,21 @@
 .red{
   color: red;
 }
+
+.App button{
+    border: 1px solid green;
+    padding: 16px;
+    background: blue;
+    font: inherit;
+    color: #cccccc;
+}
+.App button:hover{
+     background: green;
+    color: black;
+}
+.App button.red{
+    background: red;
+}
+.App button.red:hover{
+    background: #ff866e;
+}

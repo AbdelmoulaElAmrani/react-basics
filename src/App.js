@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Style from './App.module.css';
 import Person  from './Person/Person';
 
@@ -56,15 +57,9 @@ class App extends Component {
 
   render() {
 
-        const style ={
-          backgroundColor : "green",
-          font : "inherit",
-            border : "1px solid blue",
-            padding : "8px",
-            cursor: "pointer",
 
-        };
         let persons = null;
+        let btnClass = '';
         if(this.state.showPersons){
             persons=(
                 <div>
@@ -94,8 +89,7 @@ class App extends Component {
                     {/*> I love cats</Person>*/}
                 </div>
             )
-            style.backgroundColor = 'red';
-
+            btnClass = Style.red;
         }
 
         const classes = [];
@@ -111,7 +105,7 @@ class App extends Component {
             <h1>Hello</h1>
               <p className={classes.join(' ')}>list of persons</p>
               <button
-                  style={style}
+                  className={btnClass}
                   onClick={this.toggleHundler}>toggle persons </button>
 
               {persons}
