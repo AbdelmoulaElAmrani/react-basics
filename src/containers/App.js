@@ -81,8 +81,22 @@ class App extends PureComponent {
 
     }
 
+    //-----
+    //old
     componentWillUpdate(nextProps , nextState){
     }
+    //new
+    static getDerivedStateFormProps(nextProps , prevState){
+
+    }
+
+    //new
+
+    getSnapshotBeforeUpdate(){
+
+    }
+    //-----
+
 
     componentDidUpdate(){
     }
